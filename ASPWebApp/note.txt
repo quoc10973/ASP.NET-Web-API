@@ -1,0 +1,6 @@
+- Add migration
+PM: Add-Migration DbInit
+
+- Update Database
+PM: Update-Database
+
