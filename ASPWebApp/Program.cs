@@ -1,4 +1,7 @@
 
+using ASPWebApp.Entities;
+using Microsoft.EntityFrameworkCore;
+
 namespace ASPWebApp
 {
     public class Program
@@ -21,6 +24,12 @@ namespace ASPWebApp
                     builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
+            });
+
+            // Add DbContext to the container 
+            builder.Services.AddDbContext<BookStoreContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DBDefault"));
             });
 
             var app = builder.Build();
