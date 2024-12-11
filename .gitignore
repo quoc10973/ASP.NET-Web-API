@@ -1,0 +1,86 @@
+# Thư mục Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Thư mục Build
+bin/
+obj/
+[Bb]uild/
+[Ll]ogs/
+
+# User-specific files
+*.rsuser
+*.rsci
+*.sln.ide
+*.ide.*
+
+# Azure
+.localhistory/
+
+# Auto-generated files
+*.Generated.cs
+*.Designer.cs
+*.svc.cs
+*.svc
+*.xap
+*.csproj.user
+*.vbproj.user
+
+# Temporary files
+*.cache
+*.pdb
+*.mdb
+*.log
+*.tlog
+*.idb
+*.ilk
+*.obj
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+*.wrn
+*.err
+
+# IIS
+_IISExpress/
+.config/
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# Environment
+.env
+.env.*
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# ASP.NET Web API
+App_Data/
+App_Start/
+
+# Rider files (JetBrains IDE)
+.idea/
+*.iml
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# Others
+*.dbmdl
+*.jfm
+*.pyc
+*.pyo
+*.pycache/
+*.log
