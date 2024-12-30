@@ -1,5 +1,6 @@
 
 using ASPWebApp.Entities;
+using ASPWebApp.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPWebApp
@@ -31,6 +32,8 @@ namespace ASPWebApp
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DBDefault"));
             });
+
+            builder.Services.AddAutoMapper(typeof(ModelMapper));
 
             var app = builder.Build();
 
