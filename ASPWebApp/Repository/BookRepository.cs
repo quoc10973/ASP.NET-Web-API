@@ -28,16 +28,16 @@ namespace ASPWebApp.Repository
             var currentBook = await _context.Books!.SingleOrDefaultAsync(b => b.Id == id);
             if (currentBook == null)
             {
-                return;
+                throw new ArgumentException("Book with the specified ID does not exist.");
             }
             _context.Books!.Remove(currentBook);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<BookDTO>> GetAllBooksAsync()
+        public async Task<List<Book>> GetAllBooksAsync()
         {
             var books = await _context.Books!.ToListAsync();
-            return _modelMapper.Map<List<BookDTO>>(books);
+            return books;
         }
 
         public async Task<BookDTO> GetBookByIdAsync(int id)
@@ -51,9 +51,12 @@ namespace ASPWebApp.Repository
             var currentBook = await _context.Books!.SingleOrDefaultAsync(b => b.Id == id);
             if(currentBook == null)
             {
-                return null;
+                throw new ArgumentException("Book with the specified ID does not exist.");
             }
-            var updatedBook = _modelMapper.Map<Book>(book);
+            currentBook.Author = book.Author;
+            currentBook.Title = book.Title;
+            currentBook.Price = book.Price;
+            currentBook.Description = book.Description;
             await _context.SaveChangesAsync();
             return book;
         }
