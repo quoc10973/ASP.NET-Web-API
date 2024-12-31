@@ -9,6 +9,7 @@ namespace ASPWebApp.Util
         public ModelMapper()
         {
             CreateMap<Book, BookDTO>().ReverseMap(); // Create a mapping between Book and BookDTO
+            CreateMap<Account, AccountDTO>().ReverseMap(); // Create a mapping between Account and AccountDTO
         }
     }
 }
