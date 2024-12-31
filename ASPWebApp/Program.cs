@@ -1,6 +1,7 @@
 
 using ASPWebApp.Entities;
 using ASPWebApp.Repository;
+using ASPWebApp.Service;
 using ASPWebApp.Util;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,6 +39,8 @@ namespace ASPWebApp
 
             // Life cycle DI: AddScoped, AddSingleton, AddTransient
             builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             var app = builder.Build();
 
