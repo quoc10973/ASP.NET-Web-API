@@ -1,5 +1,6 @@
 
 using ASPWebApp.Entities;
+using ASPWebApp.Repository;
 using ASPWebApp.Util;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +35,9 @@ namespace ASPWebApp
             });
 
             builder.Services.AddAutoMapper(typeof(ModelMapper));
+
+            // Life cycle DI: AddScoped, AddSingleton, AddTransient
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
 
             var app = builder.Build();
 
