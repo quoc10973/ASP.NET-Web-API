@@ -55,7 +55,7 @@ namespace ASPWebApp.Service
             accountToUpdate.FirstName = account.FirstName;
             accountToUpdate.LastName = account.LastName;
             accountToUpdate.Role = account.Role;
-            _accountRepository.UpdateAsync(accountToUpdate);
+            await _accountRepository.UpdateAsync(accountToUpdate);
             return _mapper.Map<AccountDTO>(accountToUpdate);
         }
 
