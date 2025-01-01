@@ -1,4 +1,5 @@
 ﻿using ASPWebApp.Entities;
+using ASPWebApp.Enum;
 using ASPWebApp.Model;
 using ASPWebApp.Repository;
 using AutoMapper;
@@ -64,10 +65,25 @@ namespace ASPWebApp.Service
             }          
         }
 
-        public Task<AccountDTO> Register(Account account)
+        public async Task<AccountDTO> Register(AccountRegister registerRequest)
         {
-            var newAccount = _accountService.CreateAccountAsync(account);
+            try { 
+            Account account = new Account
+            {
+                Email = registerRequest.Email,
+                Password = registerRequest.Password,
+                Role = Role.USER,
+                FirstName = registerRequest.FirstName,
+                LastName = registerRequest.LastName,
+                Address = registerRequest.Address
+            };
+            var newAccount = await _accountService.CreateAccountAsync(account);
             return newAccount;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
         }
     }
 }
