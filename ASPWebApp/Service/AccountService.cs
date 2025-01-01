@@ -2,6 +2,7 @@
 using ASPWebApp.Model;
 using ASPWebApp.Repository;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPWebApp.Service
 {
@@ -68,6 +69,19 @@ namespace ASPWebApp.Service
             await _accountRepository.DeleteAsync(accountToDelete);
         }
 
-        
+        public async Task<AccountDTO> CheckLogin(string email, string password)
+        {
+            var account = await _accountRepository.GetAccountByEmail(email);
+            if (account == null)
+            {
+                throw new ArgumentException("Account not found");
+            }
+            var isPasswordValid = BCrypt.Net.BCrypt.Verify(password, account.Password);
+            if (!isPasswordValid)
+            {
+                throw new ArgumentException("Invalid password");
+            }
+            return _mapper.Map<AccountDTO>(account);
+        }
     }
 }

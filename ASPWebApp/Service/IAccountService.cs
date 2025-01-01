@@ -10,5 +10,6 @@ namespace ASPWebApp.Service
         Task<AccountDTO> GetAccountByIdAsync(Guid Id);
         Task<AccountDTO> UpdateAccountAsync(Guid Id, Account account);
         Task DeleteAccountAsync(Guid Id);
+        Task<AccountDTO> CheckLogin(string email, string password);
     }
 }
