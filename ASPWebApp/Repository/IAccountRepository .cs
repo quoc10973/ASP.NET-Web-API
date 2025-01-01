@@ -11,5 +11,7 @@ namespace ASPWebApp.Repository
         public Task<Account> GetByIdAsync(Guid id);
         public Task UpdateAsync(Account account);
 
+        public Task<Account> GetAccountByEmail(string email);
+
     }
 }

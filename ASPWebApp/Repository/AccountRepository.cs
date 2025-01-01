@@ -1,6 +1,7 @@
 ﻿using ASPWebApp.Entities;
 using ASPWebApp.Model;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPWebApp.Repository
@@ -24,6 +25,12 @@ namespace ASPWebApp.Repository
         {
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<Account> GetAccountByEmail(string email)
+        {
+            var account = _context.Accounts.FirstOrDefaultAsync(a => a.Email.Equals(email));
+            return account;
         }
 
         public async Task<IEnumerable<Account>> GetAllAsync()

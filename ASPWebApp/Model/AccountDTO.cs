@@ -17,5 +17,7 @@ namespace ASPWebApp.Model
         public Role Role { get; set; }
 
         public string Address { get; set; }
+
+        public string AccessToken { get; set; }
     }
 }
