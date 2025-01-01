@@ -3,7 +3,12 @@ using ASPWebApp.Entities;
 using ASPWebApp.Repository;
 using ASPWebApp.Service;
 using ASPWebApp.Util;
+using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ASPWebApp
 {
@@ -41,6 +46,32 @@ namespace ASPWebApp
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            Env.Load();
+            var jwtSettings = builder.Configuration.GetSection("JwtConfig");
+            var key = Environment.GetEnvironmentVariable("SECRET");
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+                    ValidAudience = builder.Configuration["JwtConfig:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                };       
+            });
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
@@ -52,6 +83,8 @@ namespace ASPWebApp
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
