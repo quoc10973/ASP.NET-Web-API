@@ -25,5 +25,7 @@ namespace ASPWebApp.Entities
         public Role Role { get; set; }
 
         public string Address { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

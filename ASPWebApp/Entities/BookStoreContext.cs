@@ -13,6 +13,8 @@ namespace ASPWebApp.Entities
 
         public DbSet<Account>? Accounts { get; set; }
 
+        public DbSet<Order>? Orders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -21,6 +23,10 @@ namespace ASPWebApp.Entities
             modelBuilder.Entity<Account>()
                 .HasIndex(a => a.Email)
                 .IsUnique();
+            modelBuilder.Entity<Account>()
+                .HasMany(a => a.Orders)
+                .WithOne(o => o.Account)
+                .HasForeignKey(o => o.AccountId);
         }
     }
    
