@@ -9,5 +9,7 @@ namespace ASPWebApp.Service
         public Task<AccountDTO> Register(AccountRegister registerRequest);
 
         public Task<string> GenerateToken(AccountDTO account);
+
+        public Task<AccountDTO> GetCurrentUser();
     }
 }

@@ -71,6 +71,7 @@ namespace ASPWebApp
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             Env.Load();
             var jwtSettings = builder.Configuration.GetSection("JwtConfig");

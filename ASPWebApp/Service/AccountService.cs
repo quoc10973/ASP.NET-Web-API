@@ -83,5 +83,11 @@ namespace ASPWebApp.Service
             }
             return _mapper.Map<AccountDTO>(account);
         }
+
+        public async Task<AccountDTO> GetAccountByEmailAsync(string email)
+        {
+            var account = await _accountRepository.GetAccountByEmail(email);
+            return _mapper.Map<AccountDTO>(account);
+        }
     }
 }

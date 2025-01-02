@@ -43,5 +43,18 @@ namespace ASPWebApp.Controllers
                 return BadRequest("Email already in used, please try another email!");
             }
         }
+
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            try
+            {
+                return Ok(await _authenticationService.GetCurrentUser());
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized("Unauthorized");
+            }
+        }
     }
 }

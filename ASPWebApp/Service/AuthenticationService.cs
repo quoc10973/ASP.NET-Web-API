@@ -15,12 +15,14 @@ namespace ASPWebApp.Service
         private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthenticationService(IAccountService accountService, IMapper mapper, IConfiguration configuration)
+        public AuthenticationService(IAccountService accountService, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _accountService = accountService;
             _mapper = mapper;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Task<string> GenerateToken(AccountDTO account)
@@ -49,6 +51,17 @@ namespace ASPWebApp.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var accessToken = tokenHandler.WriteToken(token);
             return Task.FromResult(accessToken);
+        }
+
+        public async Task<AccountDTO> GetCurrentUser()
+        {
+            var userEmail = _httpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            if(string.IsNullOrEmpty(userEmail))
+            {
+                throw new ArgumentException("User not found");
+            }
+            var account = await _accountService.GetAccountByEmailAsync(userEmail);
+            return account;
         }
 
         public async Task<AccountDTO> Login(string email, string password)
