@@ -1,12 +1,14 @@
 ﻿using ASPWebApp.Entities;
 using ASPWebApp.Model;
 using ASPWebApp.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPWebApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Policy = "ADMIN")]
     [ApiController]
     public class AccountController : ControllerBase
     {

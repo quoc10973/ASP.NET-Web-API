@@ -1,11 +1,13 @@
 ﻿using ASPWebApp.Model;
 using ASPWebApp.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPWebApp.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
