@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ASPWebApp.Entities
 {
@@ -12,6 +13,8 @@ namespace ASPWebApp.Entities
         public double TotalPrice { get; set; }
 
         public Guid AccountId { get; set; }
+
+        [JsonIgnore]
         public Account Account { get; set; }
     }
 }
