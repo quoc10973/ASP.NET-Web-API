@@ -2,7 +2,6 @@
 using ASPWebApp.Model;
 using ASPWebApp.Repository;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace ASPWebApp.Service
 {

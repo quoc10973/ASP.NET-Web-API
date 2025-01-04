@@ -40,7 +40,7 @@ namespace ASPWebApp.Repository
             return books;
         }
 
-        public async Task<BookDTO> GetBookByIdAsync(int id)
+        public async Task<BookDTO> GetBookByIdAsync(long id)
         {
             var book = await _context.Books!.FindAsync(id);
             return _modelMapper.Map<BookDTO>(book);
